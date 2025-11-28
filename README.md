@@ -1,35 +1,30 @@
-<<<<<<< HEAD
 # Kedai Riski - Kasir Mini (PWA, Offline)
 
 ## Ringkasan
-Aplikasi kasir offline berbasis PWA + IndexedDB. Bisa dijalankan langsung dengan membuka `index.html` di browser HP atau laptop. Mendukung:
-- Produk (lihat, tambah, edit, hapus)
-- Kasir & keranjang
-- Restock
-- Riwayat transaksi
-- Backup manual (JSON/CSV/TXT)
-- Auto-backup (lokal, interval)
-- Mode Terminal (do/while + switch)
-- PWA installable & offline
-- Print struk (thermal-friendly)
+Aplikasi kasir offline berbasis PWA + IndexedDB yang dioptimalkan untuk mobile. Bisa dijalankan langsung dengan membuka `index.html` di browser HP atau laptop.
 
-## Cara pakai (tanpa server)
-1. Salin folder `kasir-riski/` ke HP.
-2. Buka file `index.html` dengan Chrome/Firefox/Samsung Internet.
-3. Pilih `Add to Home Screen` untuk menjadikan app.
+## Fitur Utama
+- ✅ **UI Responsif** - Optimized untuk mobile dengan touch-friendly controls
+- ✅ **Manajemen Produk** - Tambah, edit, hapus, restock produk
+- ✅ **Kasir & Keranjang** - Interface kasir yang intuitif
+- ✅ **Multi Metode Bayar** - Cash, QRIS, Transfer dengan referensi
+- ✅ **Backup/Restore** - JSON & CSV export/import
+- ✅ **Auto Backup** - Backup otomatis dengan interval
+- ✅ **Print Struk** - Thermal printer friendly receipt
+- ✅ **PWA** - Installable & bekerja offline
+- ✅ **Dashboard** - Grafik penjualan 7 hari terakhir
+- ✅ **Terminal Mode** - Untuk development dan troubleshooting
 
-## Backup & Restore
-- Gunakan menu `Backup` untuk export / import.
-- Auto-backup menyimpan snapshot ke database dan mencoba mendownload file secara otomatis.
+## Cara Pakai (Mobile)
 
-## Print Struk (Thermal)
-- Setelah checkout, struk akan terbuka di jendela baru, gunakan `Print`/`Save as PDF`.
-- Untuk mencetak ke printer thermal dari HP, gunakan fitur print dari browser yang terhubung ke printer (via Wi-Fi/Cloud Print/OBD). Jika ingin koneksi Bluetooth/USB thermal printer, perlu aplikasi native atau bridge (diluar scope web-only).
+### Instalasi Cepat:
+1. **Download** folder aplikasi ke HP
+2. **Buka** file `index.html` dengan Chrome/Firefox
+3. **Add to Home Screen** untuk install sebagai app
 
-## Catatan teknis
-- Semua data disimpan di browser (IndexedDB). Data bersifat lokal per perangkat.
-- Jika ingin sinkronisasi antar perangkat, butuh backend (opsional).
-
-=======
-# jajanan-rizky
->>>>>>> e4749b1df585140fa9aa08355d60493d5c73841b
+### Untuk Developer:
+```bash
+# Serve dengan local server untuk testing PWA
+python -m http.server 8000
+# atau
+npx serve .

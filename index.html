@@ -2,74 +2,218 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Kedai Riski - Kasir Offline</title>
-
-    <!-- No favicon, sesuai permintaan -->
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- PWA Meta -->
+    <meta name="theme-color" content="#4a6cf7">
+   <meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-        <h2 class="brand">Kedai Riski</h2>
-        <button data-page="dashboard">📊 Dashboard</button>
-        <button data-page="kasir">🛒 Kasir</button>
-        <button data-page="admin">⚙️ Admin</button>
-        <button data-page="backup">💾 Backup</button>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <h1 class="mobile-title">Kedai Riski</h1>
+        <div class="header-actions">
+            <button class="cart-badge" id="cartBadge">🛒 <span>0</span></button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="brand">Kedai Riski</h2>
+            <button class="close-sidebar" id="closeSidebar">×</button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="navbtn active" data-page="dashboard">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">Dashboard</span>
+            </button>
+            <button class="navbtn" data-page="kasir">
+                <span class="nav-icon">🛒</span>
+                <span class="nav-text">Kasir</span>
+            </button>
+            <button class="navbtn" data-page="admin">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">Admin</span>
+            </button>
+            <button class="navbtn" data-page="backup">
+                <span class="nav-icon">💾</span>
+                <span class="nav-text">Backup</span>
+            </button>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info" id="userInfo">
+                <span>Belum login</span>
+            </div>
+        </div>
     </aside>
 
-    <main class="content">
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <!-- Dashboard Page -->
+    <!-- MAIN CONTENT -->
+    <main class="content">
+        <!-- Loading Indicator -->
+        <div id="loading" class="loading hidden">
+            <div class="loading-spinner"></div>
+            <span>Memuat...</span>
+        </div>
+
+        <!-- DASHBOARD -->
         <section id="dashboard" class="page active">
-            <h1>Dashboard</h1>
-            <div class="card">
-                <h3>Total Penjualan Hari Ini</h3>
-                <p id="dashTotal">Rp 0</p>
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <button class="btn-refresh" onclick="refreshDashboard()">🔄</button>
             </div>
+            
+            <div class="dash-grid">
+                <div class="card card-primary">
+                    <div class="card-icon">💰</div>
+                    <h3>Total Penjualan Hari Ini</h3>
+                    <p id="dashTotal" class="big-num">Rp 0</p>
+                </div>
+
+                <div class="card card-secondary">
+                    <div class="card-icon">📈</div>
+                    <h3>Jumlah Transaksi</h3>
+                    <p id="dashCount" class="big-num">0 transaksi</p>
+                </div>
+                
+                <div class="card card-info">
+                    <div class="card-icon">📦</div>
+                    <h3>Stok Menipis</h3>
+                    <p id="dashLowStock" class="big-num">0 produk</p>
+                </div>
+            </div>
+
             <div class="card">
-                <h3>Jumlah Transaksi</h3>
-                <p id="dashCount">0 transaksi</p>
+                <h3>Omzet 7 Hari Terakhir</h3>
+                <canvas id="chart7" width="400" height="150"></canvas>
             </div>
         </section>
 
-        <!-- Kasir Page -->
+        <!-- KASIR -->
         <section id="kasir" class="page">
-            <h1>Kasir</h1>
+            <div class="page-header">
+                <h1>Kasir</h1>
+                <button class="btn-clear-cart" onclick="clearCart()">🗑️ Kosongkan</button>
+            </div>
 
-            <input id="searchMenu" class="search" placeholder="Cari menu...">
+            <div class="search-container">
+                <input id="searchMenu" class="search" placeholder="🔍 Cari menu...">
+                <select id="categoryFilter" class="category-filter">
+                    <option value="">Semua Kategori</option>
+                </select>
+            </div>
 
+            <!-- List Menu -->
             <div id="menuList" class="grid"></div>
 
-            <h2>Keranjang</h2>
-            <div id="cartList"></div>
-
-            <button id="payButton" class="btn-main">Bayar</button>
+            <div class="cart-section">
+                <div class="cart-header">
+                    <h2>Keranjang</h2>
+                    <span class="cart-total" id="cartTotal">Total: Rp 0</span>
+                </div>
+                <div id="cartList" class="cart-list"></div>
+                
+                <div class="cart-actions">
+                    <button id="payButton" class="btn-main btn-pay">💳 Bayar</button>
+                </div>
+            </div>
         </section>
 
-        <!-- Admin Page -->
+        <!-- ADMIN -->
         <section id="admin" class="page">
-            <h1>Manajemen Produk</h1>
-            <button id="addProduct" class="btn-secondary">Tambah Produk</button>
+            <div class="page-header">
+                <h1>Manajemen Produk</h1>
+                <button id="addProduct" class="btn-main">+ Tambah Produk</button>
+            </div>
+
+            <div class="admin-actions">
+                <button id="exportProducts" class="btn-secondary">📤 Export CSV</button>
+                <button id="importProducts" class="btn-secondary">📥 Import CSV</button>
+                <input type="file" id="importFile" accept=".csv" class="hidden">
+            </div>
+
             <div id="adminList"></div>
         </section>
 
-        <!-- Backup Page -->
+        <!-- BACKUP -->
         <section id="backup" class="page">
-            <h1>Backup & Restore</h1>
+            <div class="page-header">
+                <h1>Backup & Restore</h1>
+            </div>
 
-            <button id="backupCSV" class="btn-secondary">Backup CSV</button>
-            <button id="backupJSON" class="btn-secondary">Backup JSON</button>
+            <div class="backup-actions">
+                <button id="backupCSV" class="btn-secondary">📊 Backup CSV</button>
+                <button id="backupJSON" class="btn-secondary">📁 Backup JSON</button>
+                <button id="autoBackupToggle" class="btn-secondary">⏰ Auto Backup: OFF</button>
+            </div>
 
-            <h2>Restore Data</h2>
-            <input type="file" id="restoreFile">
-            <button id="restoreButton" class="btn-main">Restore</button>
+            <div class="card">
+                <h3>Restore Data</h3>
+                <div class="restore-section">
+                    <input type="file" id="restoreFile" accept=".json,.csv">
+                    <button id="restoreButton" class="btn-main">🔄 Restore</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Daftar Backup</h3>
+                <div id="backupList" class="backup-list"></div>
+            </div>
         </section>
-
     </main>
 
+    <!-- MODAL (global) -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-actions">
+                <button id="modalCancel" class="btn-secondary">Batal</button>
+                <button id="modalOK" class="btn-main">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP -->
     <script src="app.js"></script>
+
+    <!-- PWA Service Worker -->
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/service-worker.js")
+                    .then(reg => {
+                        console.log("SW registered:", reg);
+                        // Check for updates every hour
+                        setInterval(() => reg.update(), 60 * 60 * 1000);
+                    })
+                    .catch(err => console.error("SW registration failed:", err));
+            });
+        }
+        
+        // Prevent zoom on double tap
+        document.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
 </body>
 </html>
