@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kedai Riski - Kasir Offline</title>
+
+    <!-- No favicon, sesuai permintaan -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <h2 class="brand">Kedai Riski</h2>
+        <button data-page="dashboard">📊 Dashboard</button>
+        <button data-page="kasir">🛒 Kasir</button>
+        <button data-page="admin">⚙️ Admin</button>
+        <button data-page="backup">💾 Backup</button>
+    </aside>
+
+    <main class="content">
+
+        <!-- Dashboard Page -->
+        <section id="dashboard" class="page active">
+            <h1>Dashboard</h1>
+            <div class="card">
+                <h3>Total Penjualan Hari Ini</h3>
+                <p id="dashTotal">Rp 0</p>
+            </div>
+            <div class="card">
+                <h3>Jumlah Transaksi</h3>
+                <p id="dashCount">0 transaksi</p>
+            </div>
+        </section>
+
+        <!-- Kasir Page -->
+        <section id="kasir" class="page">
+            <h1>Kasir</h1>
+
+            <input id="searchMenu" class="search" placeholder="Cari menu...">
+
+            <div id="menuList" class="grid"></div>
+
+            <h2>Keranjang</h2>
+            <div id="cartList"></div>
+
+            <button id="payButton" class="btn-main">Bayar</button>
+        </section>
+
+        <!-- Admin Page -->
+        <section id="admin" class="page">
+            <h1>Manajemen Produk</h1>
+            <button id="addProduct" class="btn-secondary">Tambah Produk</button>
+            <div id="adminList"></div>
+        </section>
+
+        <!-- Backup Page -->
+        <section id="backup" class="page">
+            <h1>Backup & Restore</h1>
+
+            <button id="backupCSV" class="btn-secondary">Backup CSV</button>
+            <button id="backupJSON" class="btn-secondary">Backup JSON</button>
+
+            <h2>Restore Data</h2>
+            <input type="file" id="restoreFile">
+            <button id="restoreButton" class="btn-main">Restore</button>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "Kedai Riski Kasir",
+  "short_name": "KasirRiski",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Aplikasi kasir offline untuk Kedai Riski",
+  "icons": [
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

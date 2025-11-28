@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    display: flex;
+    font-family: system-ui, sans-serif;
+    background: #f5f6fa;
+}
+
+.sidebar {
+    width: 220px;
+    background: #222;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .brand {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar button {
+    padding: 12px;
+    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    background: #333;
+    border-radius: 8px;
+    color: white;
+    text-align: left;
+    transition: 0.2s;
+}
+
+.sidebar button:hover {
+    background: #444;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+}
+
+.menu-card {
+    background: white;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.menu-card:hover {
+    background: #f2f2f2;
+}
+
+.search {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.btn-main {
+    padding: 14px 20px;
+    border: none;
+    background: #4a6cf7;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.btn-secondary {
+    padding: 12px 18px;
+    border: 1px solid #4a6cf7;
+    background: white;
+    color: #4a6cf7;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+#cartList div {
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
