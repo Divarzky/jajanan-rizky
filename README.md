@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Kedai Riski - Kasir Mini (PWA, Offline)
 
 ## Ringkasan
@@ -29,3 +30,6 @@ Aplikasi kasir offline berbasis PWA + IndexedDB. Bisa dijalankan langsung dengan
 - Semua data disimpan di browser (IndexedDB). Data bersifat lokal per perangkat.
 - Jika ingin sinkronisasi antar perangkat, butuh backend (opsional).
 
+=======
+# jajanan-rizky
+>>>>>>> e4749b1df585140fa9aa08355d60493d5c73841b
